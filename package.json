@@ -4,8 +4,9 @@
   "description": "Vue jsx render to string",
   "main": "index.js",
   "scripts": {
-    "test": "ava",
-    "build": "rollup -c"
+    "test": "ava --verbose --tap-nyan ",
+    "build": "rollup -c",
+    "build-test": "babel test/unit/ -d test/dist"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,9 @@
     "require": [
       "babel-register"
     ],
-    "babel": "inherit"
+    "babel": "inherit",
+    "files": [
+      "test/unit/**/*.js"
+    ]
   }
 }
