@@ -1,11 +1,12 @@
 import { IClassData, IData, IStyleData } from './interfaces';
-import { assign, hyphenate, isObj, isUndef } from './utils';
+import { assign, hasOwn, hyphenate, isObject, isUndef } from './utils';
 
 export function renderString(tag: string, data: IData, childrens?: string[]): string {
   // tslint:disable-next-line:no-console
   // console.log(data);
   const str = [
-    `<${tag}${getClassesString(data.class)}${getStyleString(data.style)}${getAttrsString(data.attrs)}>`,
+    // tslint:disable-next-line:max-line-length
+    `<${tag}${getClassesString(data.class)}${getStyleString(data.style)}${getAttrsString(data.attrs)}${getInputValue(data)}>`,
     childrens && childrens.join('') || '',
     `</${tag}>`
   ].join('');
@@ -25,7 +26,7 @@ export function getClassesString(classData: IClassData | undefined): string {
         return getClassFromObj(data).join(' ');
       }
     });
-  } else if (isObj(classData)) {
+  } else if (isObject(classData)) {
     classList = getClassFromObj(classData);
   } else {
     classList.push(classData);
@@ -73,4 +74,17 @@ export function getAttrsString(attrs: { [key: string]: string } | undefined) {
     attrsStr += ` ${key}="${attrs[key]}"`;
   }
   return attrsStr;
+}
+
+/**
+ * 适配v-model或value={xxxx}
+ */
+export function getInputValue(data: IData) {
+  if (data.attrs && hasOwn(data.attrs, 'value')) return '';
+  if (data.domProps && hasOwn(data.domProps, 'value')) {
+    const value = data.domProps.value;
+    return ` value="${value}"`;
+  } else {
+    return '';
+  }
 }

@@ -1,4 +1,4 @@
-
+import Vue, { ComponentOptions, VueConstructor } from 'vue';
 export type IFn = (...args: any[]) => any;
 
 export type IPureComponent = (props: any) => string;
@@ -37,6 +37,10 @@ export interface IData {
 
   slot?: string;
 
+  is?: any;
+
+  model?: { value: any };
+
   // 下面的属性暂时应该不用管
 
   /**
@@ -56,4 +60,22 @@ export interface IData {
 
   nativeOn?: any;
 
+}
+
+export type VueCtor = VueConstructor & { options: ComponentOptions<Vue> };
+
+export interface IFunctionalContext {
+  props: { [key: string]: any };
+
+  children: string[];
+
+  slots(): { [key: string]: any };
+
+  data: IData;
+
+  parent: Vue;
+
+  listeners: {};
+
+  injections: { [key: string]: any };
 }

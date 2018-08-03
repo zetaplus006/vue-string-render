@@ -2,12 +2,11 @@
  * change from https://github.com/vuejs/vue/blob/dev/src/core/vdom/helpers/extract-props.js
  */
 
-import Vue from 'vue';
-import { IData } from './interfaces';
+import { IData, VueCtor } from './interfaces';
 import { hasOwn, hyphenate, isDef, isUndef } from './utils';
 
-export function extractProps(ctx: Vue, data: IData) {
-  const propOptions = ctx.$options.props;
+export function extractProps(ctor: VueCtor, data: IData) {
+  const propOptions = ctor.options.props;
   if (isUndef(propOptions)) {
     return;
   }

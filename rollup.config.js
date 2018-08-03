@@ -11,7 +11,7 @@ const input = 'src/index.ts';
 const name = 'vue-string-render';
 const plugins = [
   typescript(),
-  filesize()
+  // filesize()
 ]
 
 
@@ -27,15 +27,15 @@ export default [
     plugins,
     external: ['vue']
   },
-  {
-    input,
-    output: {
-      name,
-      file: 'lib/' + name + '.cjs.js',
-      format: 'cjs',
-      banner
-    },
-    plugins,
-    external: ['vue']
-  }
+  // {
+  //   input,
+  //   output: {
+  //     name,
+  //     file: 'lib/' + name + '.cjs.js',
+  //     format: 'cjs',
+  //     banner
+  //   },
+  //   plugins,
+  //   external: ['vue']
+  // }
 ]

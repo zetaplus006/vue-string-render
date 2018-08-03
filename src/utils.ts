@@ -2,7 +2,7 @@
  * change from https://github.com/vuejs/vue/blob/dev/src/shared/util.js
  */
 
-export function isObj(v: any): boolean {
+export function isObject(v: any): boolean {
   return v !== null && typeof v === 'object';
 }
 
@@ -12,6 +12,9 @@ export function isUndef(v: any): boolean {
 
 export function isDef(v: any): boolean {
   return v !== undefined && v !== null;
+}
+export function isTrue (v: any): boolean {
+  return v === true;
 }
 
 export function isPrimitive(value: any): boolean {
@@ -42,8 +45,24 @@ export const hyphenate = cached((str: string) => {
   return str.replace(hyphenateRE, '-$1').toLowerCase();
 });
 
+const camelizeRE = /-(\w)/g;
+export const camelize = cached((str: string): string => {
+  return str.replace(camelizeRE, (_, c) => c ? c.toUpperCase() : '');
+});
+
+export const capitalize = cached((str: string): string => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+});
+
 export function assign(to: object, from: object): any {
   for (const key in from) {
     to[key] = from[key];
   }
+}
+
+export function extend (to: object, _from?: object): object {
+  for (const key in _from) {
+    to[key] = _from[key];
+  }
+  return to;
 }
